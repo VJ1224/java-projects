@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" stylesheets="@styleSheet.css" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="jain_inventory.view.InventoryController">
+   <children>
+      <Rectangle fill="#364f6b" height="400.0" stroke="TRANSPARENT" strokeType="INSIDE" styleClass="options" width="205.0" />
+      <Label focusTraversable="false" layoutX="215.0" layoutY="14.0" prefHeight="65.0" prefWidth="360.0" text="Inventory">
+         <font>
+            <Font size="44.0" />
+         </font>
+      </Label>
+      <Button fx:id="back" focusTraversable="false" layoutX="516.0" layoutY="360.0" onAction="#back" prefHeight="25.0" prefWidth="69.0" styleClass="navigation" text="Back" />
+      <Button fx:id="addGoods" focusTraversable="false" layoutY="50.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#addProducts" prefHeight="45.0" prefWidth="205.0" styleClass="options" stylesheets="@styleSheet.css" text="Add Goods" />
+      <Button fx:id="removeGoods" focusTraversable="false" layoutY="92.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#removeProducts" prefHeight="45.0" prefWidth="205.0" styleClass="options" stylesheets="@styleSheet.css" text="Remove Goods" />
+      <Button fx:id="editGoods" focusTraversable="false" layoutY="135.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#editProducts" prefHeight="45.0" prefWidth="205.0" styleClass="options" stylesheets="@styleSheet.css" text="Edit Goods" />
+      <Button fx:id="searchGoods" focusTraversable="false" layoutY="181.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#searchProducts" prefHeight="45.0" prefWidth="205.0" styleClass="options" stylesheets="@styleSheet.css" text="Search Goods" />
+      <Button fx:id="calculateInventoryValue" focusTraversable="false" layoutY="273.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#calculateInventoryValue" prefHeight="45.0" prefWidth="205.0" styleClass="options" stylesheets="@styleSheet.css" text="Calculate Inventory Value" />
+      <Button fx:id="emailReport" focusTraversable="false" layoutY="319.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#emailInventoryReport" prefHeight="45.0" prefWidth="205.0" styleClass="options" stylesheets="@styleSheet.css" text="Email Report" />
+      <TableView fx:id="inventoryTable" focusTraversable="false" layoutX="214.0" layoutY="86.0" prefHeight="243.0" prefWidth="360.0">
+        <columns>
+          <TableColumn fx:id="idColumn" maxWidth="80.0" minWidth="80.0" styleClass="column" text="Product ID" />
+          <TableColumn fx:id="nameColumn" maxWidth="90.0" minWidth="90.0" prefWidth="90.0" styleClass="column" text="Name" />
+            <TableColumn fx:id="quantityColumn" maxWidth="90.0" minWidth="90.0" prefWidth="90.0" styleClass="column" text="Quantity" />
+            <TableColumn fx:id="priceColumn" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" styleClass="column" text="Price" />
+        </columns>
+      </TableView>
+      <Button fx:id="reset" focusTraversable="false" layoutX="436.0" layoutY="360.0" onAction="#resetInventoryTable" prefHeight="25.0" prefWidth="69.0" styleClass="navigation" text="Reset" />
+      <Button fx:id="filterProducts" focusTraversable="false" layoutY="227.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#filterProducts" prefHeight="45.0" prefWidth="205.0" styleClass="options" stylesheets="@styleSheet.css" text="Filter Products" />
+   </children>
+</AnchorPane>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" stylesheets="@styleSheet.css" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="jain_inventory.view.LoginController">
+    <children>
+      <TextField fx:id="emailField" layoutX="226.0" layoutY="174.0" promptText="Enter Email" />
+      <PasswordField fx:id="passwordField" layoutX="226.0" layoutY="209.0" promptText="Enter Password" />
+      <Label focusTraversable="false" layoutX="178.0" layoutY="69.0" text="Jain Textiles">
+         <font>
+            <Font size="44.0" />
+         </font>
+      </Label>
+      <Button fx:id="forgotPassword" focusTraversable="false" layoutX="185.0" layoutY="252.0" mnemonicParsing="false" onAction="#forgotPassword" styleClass="navigation" text="Forgot Password" />
+      <Button fx:id="submit" focusTraversable="false" layoutX="345.0" layoutY="252.0" onAction="#login" prefHeight="25.0" prefWidth="69.0" styleClass="navigation" text="Submit" />
+      <Button fx:id="registerUser" focusTraversable="false" layoutX="14.0" layoutY="361.0" mnemonicParsing="false" onAction="#registerUser" prefHeight="25.0" prefWidth="69.0" styleClass="navigation" text="Register" />
+      <Button fx:id="exit" focusTraversable="false" layoutX="521.0" layoutY="361.0" mnemonicParsing="false" onAction="#exitApplication" prefHeight="25.0" prefWidth="69.0" styleClass="navigation" text="Exit" />
+      <Button fx:id="removeUser" focusTraversable="false" layoutX="95.0" layoutY="361.0" mnemonicParsing="false" onAction="#removeUser" prefHeight="25.0" prefWidth="105.0" styleClass="navigation" text="Remove User" />
+    </children>
+</AnchorPane>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<jnlp spec="1.0" xmlns:jfx="http://javafx.com" href="jain_inventory.jnlp">
+  <information>
+    <title>jain_inventory</title>
+    <vendor>Vansh Jain</vendor>
+    <description>null</description>
+    <offline-allowed/>
+  </information>
+  <resources>
+    <j2se version="1.6+" href="http://java.sun.com/products/autodl/j2se"/>
+    <jar href="jain_inventory.jar" size="77342" download="eager" />
+    <jar href="lib\derby.jar" size="3232770" download="eager" />
+    <jar href="lib\dsn.jar" size="19171" download="eager" />
+    <jar href="lib\gimap.jar" size="14769" download="eager" />
+    <jar href="lib\mail.jar" size="521000" download="eager" />
+    <jar href="lib\mailapi.jar" size="279893" download="eager" />
+    <jar href="lib\pop3.jar" size="44405" download="eager" />
+    <jar href="lib\smtp.jar" size="52869" download="eager" />
+  </resources>
+  <applet-desc  width="800" height="600" main-class="com.javafx.main.NoJavaFXFallback"  name="jain_inventory" >
+    <param name="requiredFXVersion" value="8.0+"/>
+  </applet-desc>
+  <jfx:javafx-desc  width="800" height="600" main-class="jain_inventory.Jain_inventory"  name="jain_inventory" />
+  <update check="always"/>
+</jnlp>

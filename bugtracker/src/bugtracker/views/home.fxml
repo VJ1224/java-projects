@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.text.Font?>
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="bugtracker.views.HomeController">
+  <children>
+    <SplitPane fx:id="splitPane" dividerPositions="0.2506, 0.7506" focusTraversable="false" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
+      <items>
+        <AnchorPane>
+          <children>
+            <Label alignment="CENTER" focusTraversable="false" layoutX="11.0" layoutY="7.0" minWidth="60.0" prefWidth="-1.0" style="&#10;" text="Projects" textAlignment="CENTER" wrapText="false">
+              <font>
+                <Font size="18.0" fx:id="x1" />
+              </font>
+              <textFill>
+                <Color blue="0.624" green="0.624" red="0.624" fx:id="x2" />
+              </textFill>
+            </Label>
+                  <TableView fx:id="projectsTable" focusTraversable="false" layoutX="11.0" layoutY="41.0" minWidth="-Infinity" onMouseClicked="#showDetails" prefHeight="500.0" prefWidth="200.0">
+                     <columns>
+                        <TableColumn fx:id="projectsColumn" minWidth="-Infinity" prefWidth="198.0" text="Title" />
+                     </columns>
+                  </TableView>
+                  <Button fx:id="projectAdd" focusTraversable="false" layoutX="111.0" layoutY="8.0" mnemonicParsing="false" onAction="#addProject" text="Add" />
+                  <Button fx:id="removeProjectButton" disable="true" focusTraversable="false" layoutX="151.0" layoutY="8.0" mnemonicParsing="false" onAction="#removeProject" text="Remove" />
+          </children>
+        </AnchorPane>
+        <ScrollPane focusTraversable="false" prefHeight="549.0" prefWidth="325.0">
+          <content>
+            <AnchorPane id="Content" minHeight="-1.0" minWidth="-1.0" prefHeight="541.0" prefWidth="443.0">
+              <children>
+                <Label alignment="CENTER" focusTraversable="false" font="$x1" layoutX="14.0" layoutY="7.0" style="&#10;" text="Bugs" textAlignment="CENTER" textFill="$x2" wrapText="false" />
+                        <TableView fx:id="bugsTable" focusTraversable="false" layoutX="14.0" layoutY="41.0" minWidth="-Infinity" onMouseClicked="#showBugDetails" prefHeight="500.0" prefWidth="426.0">
+                           <columns>
+                              <TableColumn fx:id="bugTitle" maxWidth="300.0" minWidth="-Infinity" prefWidth="300.0" resizable="false" text="Title" />
+                              <TableColumn fx:id="bugSeverity" minWidth="-Infinity" prefWidth="124.0" text="Priority" />
+                           </columns>
+                        </TableView>
+                        <Button fx:id="bugAdd" focusTraversable="false" layoutX="402.0" layoutY="8.0" mnemonicParsing="false" onAction="#addBug" text="Add" />
+              </children>
+            </AnchorPane>
+          </content>
+        </ScrollPane>
+        <AnchorPane>
+          <children>
+            <Label alignment="CENTER" focusTraversable="false" font="$x1" layoutX="14.0" layoutY="7.0" style="&#10;" text="Details" textAlignment="CENTER" textFill="$x2" wrapText="false" />
+                  <Label fx:id="detailsText" alignment="TOP_LEFT" focusTraversable="false" layoutX="14.0" layoutY="43.0" prefHeight="491.0" prefWidth="189.0" wrapText="true" />
+                  <Button fx:id="solveBugButton" disable="true" focusTraversable="false" layoutX="155.0" layoutY="8.0" mnemonicParsing="false" onAction="#solveBug" text="Solve" />
+          </children>
+        </AnchorPane>
+      </items>
+    </SplitPane>
+    <HBox id="HBox" alignment="CENTER_LEFT" spacing="5.0" VBox.vgrow="NEVER">
+      <children>
+        <Label fx:id="projectDate" maxHeight="1.7976931348623157E308" maxWidth="-1.0" text="Date" HBox.hgrow="ALWAYS">
+          <font>
+            <Font size="11.0" fx:id="x3" />
+          </font>
+          <textFill>
+            <Color blue="0.625" green="0.625" red="0.625" fx:id="x4" />
+          </textFill>
+        </Label>
+        <Pane prefHeight="-1.0" prefWidth="-1.0" HBox.hgrow="ALWAYS" />
+        <Label fx:id="bugPriority" font="$x3" maxWidth="-1.0" text="Priority" textFill="$x4" HBox.hgrow="NEVER" />
+      </children>
+      <padding>
+        <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
+      </padding>
+    </HBox>
+  </children>
+</VBox>
