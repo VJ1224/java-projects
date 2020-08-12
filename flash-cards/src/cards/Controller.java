@@ -37,16 +37,13 @@ public class Controller {
     @FXML
     private void newSet() {
         cards.clear();
-        questionText.clear();
-        answerText.clear();
-        shown = false;
-        showButton.setText("Show");
         filename = null;
-        current = 0;
+        clear();
     }
 
     @FXML
     private void openSet() {
+        newSet();
         Stage stage = (Stage) showButton.getScene().getWindow();
         File file = fileChooser.showOpenDialog(stage);
 
@@ -135,6 +132,9 @@ public class Controller {
 
     @FXML
     private void showAnswer() {
+        if (questionText.getText().isEmpty())
+            return;
+
         if (shown) {
             answerText.clear();
             showButton.setText("Show");
@@ -145,5 +145,14 @@ public class Controller {
         }
 
         shown = !shown;
+    }
+
+    @FXML
+    private void clear() {
+        questionText.clear();
+        answerText.clear();
+        current = -1;
+        showButton.setText("Show");
+        shown = false;
     }
 }

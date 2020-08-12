@@ -17,10 +17,10 @@
       <menus>
         <Menu mnemonicParsing="false" text="File">
           <items>
-            <MenuItem mnemonicParsing="false" onAction="#newSet" text="New" />
-            <MenuItem mnemonicParsing="false" onAction="#openSet" text="Open…" />
+            <MenuItem mnemonicParsing="false" onAction="#newSet" text="New Set" />
+            <MenuItem mnemonicParsing="false" onAction="#openSet" text="Open Set" />
             <SeparatorMenuItem mnemonicParsing="false" />
-            <MenuItem mnemonicParsing="false" onAction="#saveCard" text="Save" />
+            <MenuItem mnemonicParsing="false" onAction="#saveCard" text="Save Card" />
             <SeparatorMenuItem mnemonicParsing="false" />
             <MenuItem mnemonicParsing="false" onAction="#quit" text="Quit" />
           </items>
@@ -49,6 +49,7 @@
             <Button fx:id="nextButton" layoutX="420.0" layoutY="408.0" mnemonicParsing="false" onAction="#nextCard" text="Next" />
             <Button fx:id="showButton" layoutX="212.0" layoutY="408.0" mnemonicParsing="false" onAction="#showAnswer" text="Show" />
             <Button fx:id="prevButton" layoutX="14.0" layoutY="408.0" mnemonicParsing="false" onAction="#prevCard" text="Prev" />
+            <Button fx:id="clearButton" layoutX="420.0" layoutY="14.0" mnemonicParsing="false" onAction="#clear" text="Clear" />
          </children>
     </AnchorPane>
   </children>
