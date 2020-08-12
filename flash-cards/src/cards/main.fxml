@@ -17,12 +17,12 @@
       <menus>
         <Menu mnemonicParsing="false" text="File">
           <items>
-            <MenuItem mnemonicParsing="false" text="New" />
-            <MenuItem mnemonicParsing="false" text="Open…" />
+            <MenuItem mnemonicParsing="false" onAction="#newSet" text="New" />
+            <MenuItem mnemonicParsing="false" onAction="#openSet" text="Open…" />
             <SeparatorMenuItem mnemonicParsing="false" />
             <MenuItem mnemonicParsing="false" onAction="#saveCard" text="Save" />
             <SeparatorMenuItem mnemonicParsing="false" />
-            <MenuItem mnemonicParsing="false" text="Quit" />
+            <MenuItem mnemonicParsing="false" onAction="#quit" text="Quit" />
           </items>
         </Menu>
         <Menu mnemonicParsing="false" text="Help">
@@ -47,8 +47,8 @@
             </Label>
             <TextArea fx:id="answerText" layoutX="86.0" layoutY="251.0" prefHeight="138.0" prefWidth="303.0" />
             <Button fx:id="nextButton" layoutX="420.0" layoutY="408.0" mnemonicParsing="false" onAction="#nextCard" text="Next" />
-            <Button fx:id="quitButton" layoutX="14.0" layoutY="408.0" mnemonicParsing="false" onAction="#quit" text="Quit" />
             <Button fx:id="showButton" layoutX="212.0" layoutY="408.0" mnemonicParsing="false" onAction="#showAnswer" text="Show" />
+            <Button fx:id="prevButton" layoutX="14.0" layoutY="408.0" mnemonicParsing="false" onAction="#prevCard" text="Prev" />
          </children>
     </AnchorPane>
   </children>
