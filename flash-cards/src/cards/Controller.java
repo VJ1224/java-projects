@@ -51,7 +51,7 @@ public class Controller {
         File file = fileChooser.showOpenDialog(stage);
 
         if (file != null) {
-            filename = file.getName();
+            filename = file.getAbsolutePath();
         }
 
         try {
@@ -87,7 +87,7 @@ public class Controller {
             File file = fileChooser.showSaveDialog(stage);
 
             if (file != null) {
-                filename = file.getName();
+                filename = file.getAbsolutePath();
                 saveToFile(question, answer);
             }
         }
