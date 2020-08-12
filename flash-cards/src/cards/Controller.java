@@ -102,6 +102,7 @@ public class Controller {
             writer.close();
 
             cards.add(card);
+            current = cards.indexOf(card);
         } catch (IOException exception) {
             exception.printStackTrace();
         }
