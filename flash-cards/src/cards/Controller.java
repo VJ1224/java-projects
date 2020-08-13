@@ -29,6 +29,7 @@ public class Controller {
     @FXML
     private void initialize() {
         fileChooser.getExtensionFilters().add(extFilter);
+        setName.setText("-");
     }
 
     @FXML
@@ -38,18 +39,20 @@ public class Controller {
     }
 
     @FXML
-    private void clear() {
+    private void clearSet() {
         cards.clear();
         questionText.clear();
         answerText.clear();
         current = -1;
         showButton.setText("Show");
         shown = false;
+        filename = null;
+        setName.setText("-");
     }
 
     @FXML
     private void openSet() {
-        clear();
+        clearSet();
         Stage stage = (Stage) showButton.getScene().getWindow();
         File file = fileChooser.showOpenDialog(stage);
 

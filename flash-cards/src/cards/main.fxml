@@ -17,7 +17,7 @@
       <menus>
         <Menu mnemonicParsing="false" text="File">
           <items>
-            <MenuItem mnemonicParsing="false" onAction="#clear" text="New Set" />
+            <MenuItem mnemonicParsing="false" onAction="#clearSet" text="New Set" />
             <MenuItem mnemonicParsing="false" onAction="#openSet" text="Open Set" />
             <SeparatorMenuItem mnemonicParsing="false" />
             <MenuItem mnemonicParsing="false" onAction="#quit" text="Quit" />
@@ -53,7 +53,7 @@
                   <Font size="14.0" />
                </font>
             </Label>
-            <Label fx:id="setName" focusTraversable="false" layoutX="44.0" layoutY="17.0" text="None">
+            <Label fx:id="setName" focusTraversable="false" layoutX="44.0" layoutY="17.0" text="-">
                <font>
                   <Font size="14.0" />
                </font>
