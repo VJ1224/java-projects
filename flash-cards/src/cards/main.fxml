@@ -17,7 +17,7 @@
       <menus>
         <Menu mnemonicParsing="false" text="File">
           <items>
-            <MenuItem mnemonicParsing="false" onAction="#newSet" text="New Set" />
+            <MenuItem mnemonicParsing="false" onAction="#clear" text="New Set" />
             <MenuItem mnemonicParsing="false" onAction="#openSet" text="Open Set" />
             <SeparatorMenuItem mnemonicParsing="false" />
             <MenuItem mnemonicParsing="false" onAction="#quit" text="Quit" />

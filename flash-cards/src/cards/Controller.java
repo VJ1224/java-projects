@@ -38,20 +38,26 @@ public class Controller {
     }
 
     @FXML
-    private void newSet() {
-        filename = null;
-        clear();
+    private void clear() {
+        cards.clear();
+        questionText.clear();
+        answerText.clear();
+        current = -1;
+        showButton.setText("Show");
+        shown = false;
     }
 
     @FXML
     private void openSet() {
-        newSet();
+        clear();
         Stage stage = (Stage) showButton.getScene().getWindow();
         File file = fileChooser.showOpenDialog(stage);
 
         if (file != null) {
             filename = file.getAbsolutePath();
             setName.setText(removeExt(file.getName()));
+        } else {
+            return;
         }
 
         readCards();
@@ -59,7 +65,6 @@ public class Controller {
 
     private void readCards() {
         try {
-            clear();
             String line;
             BufferedReader read = new BufferedReader(new FileReader(filename));
 
@@ -83,37 +88,33 @@ public class Controller {
         if (question.isEmpty() || answer.isEmpty())
             return;
 
-        if (filename != null) {
-            saveToFile(question, answer);
-        } else {
+        if (filename == null)  {
             Stage stage = (Stage) showButton.getScene().getWindow();
             File file = fileChooser.showSaveDialog(stage);
 
             if (file != null) {
                 filename = file.getAbsolutePath();
-                saveToFile(question, answer);
                 setName.setText(removeExt(file.getName()));
-                readCards();
+            } else {
+                return;
             }
         }
+
+        saveToFile(question, answer);
+        cards.add(card);
+        int index = cards.indexOf(card);
+        setCard(index);
     }
 
     private void saveToFile(String question, String answer) {
-        Card card = new Card(question, answer);
         try {
             BufferedWriter writer = new BufferedWriter(new FileWriter(filename, true));
 
-            writer.append(card.getQuestion());
+            writer.append(question);
             writer.append("~");
-            writer.append(card.getAnswer());
+            writer.append(answer);
             writer.newLine();
             writer.close();
-
-            cards.add(card);
-            int index = cards.indexOf(card);
-            current = index;
-            setCard(index);
-
         } catch (IOException exception) {
             exception.printStackTrace();
         }
@@ -124,6 +125,7 @@ public class Controller {
         Dialog<Card> dialog = new Dialog<>();
         dialog.setTitle("New Card");
         dialog.setResizable(false);
+        dialog.initOwner(showButton.getScene().getWindow());
 
         Label question = new Label("Question: ");
         Label answer = new Label("Answer: ");
@@ -158,29 +160,51 @@ public class Controller {
 
     @FXML
     private void nextCard() {
+        if (cards.isEmpty()) {
+            createInfoAlert("No set loaded");
+            return;
+        }
+
         if (cards.size() > current + 1) {
             current++;
             setCard(-1);
+        } else {
+            createInfoAlert("This is the last card");
         }
     }
 
     @FXML
     private void prevCard() {
+        if (cards.isEmpty()) {
+            createInfoAlert("No set loaded");
+            return;
+        }
+
         if (current - 1 >= 0) {
             current--;
             setCard(-1);
+        } else {
+            createInfoAlert("This is the first card");
         }
     }
 
     private void setCard(int index) {
         if (index == -1)
             index = current;
+        else
+            current = index;
 
         Card card = cards.get(index);
         questionText.setText(card.getQuestion());
         answerText.clear();
         showButton.setText("Show");
-        shown = false;
+    }
+
+    private void createInfoAlert(String message) {
+        Alert alert = new Alert(Alert.AlertType.NONE, message, ButtonType.CLOSE);
+        alert.setTitle("Message");
+        alert.initOwner(showButton.getScene().getWindow());
+        alert.show();
     }
 
     @FXML
@@ -198,15 +222,6 @@ public class Controller {
         }
 
         shown = !shown;
-    }
-
-    private void clear() {
-        cards.clear();
-        questionText.clear();
-        answerText.clear();
-        current = -1;
-        showButton.setText("Show");
-        shown = false;
     }
 
     private String removeExt(String s) {
