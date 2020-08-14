@@ -58,6 +58,7 @@
                   <Font size="14.0" />
                </font>
             </Label>
+            <Button layoutX="396.0" layoutY="43.0" mnemonicParsing="false" onAction="#deleteCard" text="Delete Card" />
          </children>
     </AnchorPane>
   </children>

@@ -24,4 +24,8 @@ public class Card {
     public void setAnswer(String answer) {
         this.answer = answer;
     }
+
+    public String toString() {
+        return String.format("%s~%s", question, answer);
+    }
 }

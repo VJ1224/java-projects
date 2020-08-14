@@ -40,12 +40,7 @@ public class Controller {
 
     @FXML
     private void clearSet() {
-        cards.clear();
-        questionText.clear();
-        answerText.clear();
-        current = -1;
-        showButton.setText("Show");
-        shown = false;
+        clearBox();
         filename = null;
         setName.setText("-");
     }
@@ -101,7 +96,22 @@ public class Controller {
 
         Optional<Card> result = dialog.showAndWait();
 
-        result.ifPresent(this::saveSet);
+        result.ifPresent(this::saveCard);
+    }
+
+    @FXML
+    private void deleteCard() {
+        Card card = cards.get(current);
+        String lineToRemove = card.toString();
+
+        new Thread(() -> deleteLine(lineToRemove)).start();
+
+        cards.remove(current);
+
+        if (!cards.isEmpty())
+            setCard(0);
+        else
+            clearBox();
     }
 
     @FXML
@@ -169,7 +179,7 @@ public class Controller {
         }
     }
 
-    private void saveSet(Card card) {
+    private void saveCard(Card card) {
         String question = card.getQuestion();
         String answer = card.getAnswer();
 
@@ -209,6 +219,32 @@ public class Controller {
         }
     }
 
+    public void deleteLine(String lineToRemove) {
+        try {
+            File file = new File(filename);
+            File tempFile = new File("temp.txt");
+
+            BufferedReader reader = new BufferedReader(new FileReader(file));
+            BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile));
+
+            String currentLine;
+            while((currentLine = reader.readLine()) != null) {
+                String trimmedLine = currentLine.trim();
+                if(trimmedLine.equals(lineToRemove)) continue;
+                writer.write(currentLine);
+                writer.newLine();
+            }
+
+            writer.close();
+            reader.close();
+            if (file.delete()) {
+                tempFile.renameTo(file);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     private void setCard(int index) {
         if (index == -1)
             index = current;
@@ -230,5 +266,14 @@ public class Controller {
 
     private String removeExt(String s) {
         return s.substring(0, s.length() - 4);
+    }
+
+    private void clearBox() {
+        cards.clear();
+        questionText.clear();
+        answerText.clear();
+        current = -1;
+        showButton.setText("Show");
+        shown = false;
     }
 }
