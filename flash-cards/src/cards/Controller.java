@@ -52,11 +52,11 @@ public class Controller {
 
     @FXML
     private void openSet() {
-        clearSet();
         Stage stage = (Stage) showButton.getScene().getWindow();
         File file = fileChooser.showOpenDialog(stage);
 
         if (file != null) {
+            clearSet();
             filename = file.getAbsolutePath();
             setName.setText(removeExt(file.getName()));
         } else {
@@ -64,63 +64,6 @@ public class Controller {
         }
 
         readCards();
-    }
-
-    private void readCards() {
-        try {
-            String line;
-            BufferedReader read = new BufferedReader(new FileReader(filename));
-
-            while ((line = read.readLine()) != null) {
-                String[] words = line.split("~");
-                Card card = new Card(words[0], words[1]);
-                cards.add(card);
-            }
-
-            read.close();
-            nextCard();
-        } catch (IOException exception) {
-            exception.printStackTrace();
-        }
-    }
-
-    private void saveSet(Card card) {
-        String question = card.getQuestion();
-        String answer = card.getAnswer();
-
-        if (question.isEmpty() || answer.isEmpty())
-            return;
-
-        if (filename == null)  {
-            Stage stage = (Stage) showButton.getScene().getWindow();
-            File file = fileChooser.showSaveDialog(stage);
-
-            if (file != null) {
-                filename = file.getAbsolutePath();
-                setName.setText(removeExt(file.getName()));
-            } else {
-                return;
-            }
-        }
-
-        saveToFile(question, answer);
-        cards.add(card);
-        int index = cards.indexOf(card);
-        setCard(index);
-    }
-
-    private void saveToFile(String question, String answer) {
-        try {
-            BufferedWriter writer = new BufferedWriter(new FileWriter(filename, true));
-
-            writer.append(question);
-            writer.append("~");
-            writer.append(answer);
-            writer.newLine();
-            writer.close();
-        } catch (IOException exception) {
-            exception.printStackTrace();
-        }
     }
 
     @FXML
@@ -191,6 +134,81 @@ public class Controller {
         }
     }
 
+    @FXML
+    private void showAnswer() {
+        if (questionText.getText().isEmpty())
+            return;
+
+        if (shown) {
+            answerText.clear();
+            showButton.setText("Show");
+        } else {
+            Card card = cards.get(current);
+            answerText.setText(card.getAnswer());
+            showButton.setText("Hide");
+        }
+
+        shown = !shown;
+    }
+
+    private void readCards() {
+        try {
+            String line;
+            BufferedReader read = new BufferedReader(new FileReader(filename));
+
+            while ((line = read.readLine()) != null) {
+                String[] words = line.split("~");
+                Card card = new Card(words[0], words[1]);
+                cards.add(card);
+            }
+
+            read.close();
+            nextCard();
+        } catch (IOException exception) {
+            exception.printStackTrace();
+        }
+    }
+
+    private void saveSet(Card card) {
+        String question = card.getQuestion();
+        String answer = card.getAnswer();
+
+        if (question.isEmpty() || answer.isEmpty())
+            return;
+
+        if (filename == null)  {
+            Stage stage = (Stage) showButton.getScene().getWindow();
+            File file = fileChooser.showSaveDialog(stage);
+
+            if (file != null) {
+                filename = file.getAbsolutePath();
+                setName.setText(removeExt(file.getName()));
+            } else {
+                return;
+            }
+        }
+
+        new Thread(() -> saveToFile(question, answer)).start();
+
+        cards.add(card);
+        int index = cards.indexOf(card);
+        setCard(index);
+    }
+
+    private void saveToFile(String question, String answer) {
+        try {
+            BufferedWriter writer = new BufferedWriter(new FileWriter(filename, true));
+
+            writer.append(question);
+            writer.append("~");
+            writer.append(answer);
+            writer.newLine();
+            writer.close();
+        } catch (IOException exception) {
+            exception.printStackTrace();
+        }
+    }
+
     private void setCard(int index) {
         if (index == -1)
             index = current;
@@ -208,23 +226,6 @@ public class Controller {
         alert.setTitle("Message");
         alert.initOwner(showButton.getScene().getWindow());
         alert.show();
-    }
-
-    @FXML
-    private void showAnswer() {
-        if (questionText.getText().isEmpty())
-            return;
-
-        if (shown) {
-            answerText.clear();
-            showButton.setText("Show");
-        } else {
-            Card card = cards.get(current);
-            answerText.setText(card.getAnswer());
-            showButton.setText("Hide");
-        }
-
-        shown = !shown;
     }
 
     private String removeExt(String s) {
