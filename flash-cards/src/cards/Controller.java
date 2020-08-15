@@ -108,46 +108,39 @@ public class Controller {
 
         cards.remove(current);
 
-        if (!cards.isEmpty())
-            setCard(0);
-        else
-            clearBox();
+        if (!cards.isEmpty()) setCard(0);
+        else clearBox();
     }
 
     @FXML
     private void nextCard() {
         if (cards.isEmpty()) {
-            createInfoAlert("No set loaded");
+            createInfoAlert("Empty set");
             return;
         }
 
         if (cards.size() > current + 1) {
             current++;
             setCard(-1);
-        } else {
-            createInfoAlert("This is the last card");
-        }
+        } else createInfoAlert("Last card");
     }
 
     @FXML
     private void prevCard() {
         if (cards.isEmpty()) {
-            createInfoAlert("No set loaded");
+            createInfoAlert("Empty set");
             return;
         }
 
         if (current - 1 >= 0) {
             current--;
             setCard(-1);
-        } else {
-            createInfoAlert("This is the first card");
-        }
+        } else createInfoAlert("First card");
     }
 
     @FXML
     private void showAnswer() {
-        if (questionText.getText().isEmpty())
-            return;
+        if (questionText.getText().isEmpty()) return;
 
         if (shown) {
             answerText.clear();
@@ -183,8 +176,7 @@ public class Controller {
         String question = card.getQuestion();
         String answer = card.getAnswer();
 
-        if (question.isEmpty() || answer.isEmpty())
-            return;
+        if (question.isEmpty() || answer.isEmpty()) return;
 
         if (filename == null)  {
             Stage stage = (Stage) showButton.getScene().getWindow();
@@ -193,9 +185,7 @@ public class Controller {
             if (file != null) {
                 filename = file.getAbsolutePath();
                 setName.setText(removeExt(file.getName()));
-            } else {
-                return;
-            }
+            } else return;
         }
 
         new Thread(() -> saveToFile(question, answer)).start();
@@ -237,19 +227,15 @@ public class Controller {
 
             writer.close();
             reader.close();
-            if (file.delete()) {
-                tempFile.renameTo(file);
-            }
+            if (file.delete()) tempFile.renameTo(file);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
     private void setCard(int index) {
-        if (index == -1)
-            index = current;
-        else
-            current = index;
+        if (index == -1) index = current;
+        else current = index;
 
         Card card = cards.get(index);
         questionText.setText(card.getQuestion());
