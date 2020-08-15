@@ -1,4 +1,4 @@
-package cards;
+package flash.cards;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -41,6 +41,7 @@ public class Controller {
     @FXML
     private void clearSet() {
         clearBox();
+        cards.clear();
         filename = null;
         setName.setText("-");
     }
@@ -176,8 +177,6 @@ public class Controller {
         String question = card.getQuestion();
         String answer = card.getAnswer();
 
-        if (question.isEmpty() || answer.isEmpty()) return;
-
         if (filename == null)  {
             Stage stage = (Stage) showButton.getScene().getWindow();
             File file = fileChooser.showSaveDialog(stage);
@@ -191,8 +190,7 @@ public class Controller {
         new Thread(() -> saveToFile(question, answer)).start();
 
         cards.add(card);
-        int index = cards.indexOf(card);
-        setCard(index);
+        setCard(cards.indexOf(card));
     }
 
     private void saveToFile(String question, String answer) {
@@ -227,7 +225,8 @@ public class Controller {
 
             writer.close();
             reader.close();
-            if (file.delete()) tempFile.renameTo(file);
+            if (file.delete()) //noinspection ResultOfMethodCallIgnored
+                tempFile.renameTo(file);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -250,12 +249,11 @@ public class Controller {
         alert.show();
     }
 
-    private String removeExt(String s) {
-        return s.substring(0, s.length() - 4);
+    private String removeExt(String file) {
+        return file.substring(0, file.length() - 4);
     }
 
     private void clearBox() {
-        cards.clear();
         questionText.clear();
         answerText.clear();
         current = -1;

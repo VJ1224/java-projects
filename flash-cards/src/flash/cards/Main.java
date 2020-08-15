@@ -1,4 +1,4 @@
-package cards;
+package flash.cards;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;

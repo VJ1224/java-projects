@@ -1,4 +1,4 @@
-package cards;
+package flash.cards;
 
 public class Card {
     private String question;
