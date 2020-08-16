@@ -64,36 +64,7 @@ public class Controller {
 
     @FXML
     private void newCard() {
-        Dialog<Card> dialog = new Dialog<>();
-        dialog.setTitle("New Card");
-        dialog.setResizable(false);
-        dialog.initOwner(showButton.getScene().getWindow());
-
-        Label question = new Label("Question: ");
-        Label answer = new Label("Answer: ");
-
-        TextField questionInput = new TextField();
-        TextField answerInput = new TextField();
-
-        GridPane grid = new GridPane();
-        grid.add(question, 1, 1);
-        grid.add(questionInput, 2, 1);
-        grid.add(new Label(""), 1, 2);
-        grid.add(new Label(""), 2, 2);
-        grid.add(answer, 1, 3);
-        grid.add(answerInput, 2, 3);
-        dialog.getDialogPane().setContent(grid);
-
-        ButtonType saveButton = new ButtonType("Save");
-        dialog.getDialogPane().getButtonTypes().add(saveButton);
-
-        dialog.setResultConverter(button -> {
-            if (button == saveButton) {
-                return new Card(questionInput.getText(), answerInput.getText());
-            }
-
-            return null;
-        });
+        Dialog dialog = createCardDialog("New Card");
 
         Optional<Card> result = dialog.showAndWait();
 
@@ -101,7 +72,30 @@ public class Controller {
     }
 
     @FXML
+    private void editCard() {
+        if (current == -1) {
+            createInfoAlert("No Card");
+            return;
+        }
+
+        Dialog dialog = createCardDialog("Edit Card");
+
+        Optional<Card> result = dialog.showAndWait();
+
+        Card oldCard = cards.get(current);
+        cards.set(current, result.get());
+        setCard(current);
+
+        new Thread(() -> replaceLine(oldCard.toString(), result.get().toString())).start();
+    }
+
+    @FXML
     private void deleteCard() {
+        if (current == -1) {
+            createInfoAlert("No Card");
+            return;
+        }
+
         Card card = cards.get(current);
         String lineToRemove = card.toString();
 
@@ -232,6 +226,35 @@ public class Controller {
         }
     }
 
+    public void replaceLine(String oldLine, String newLine) {
+        try {
+            File file = new File(filename);
+            File tempFile = new File("temp.txt");
+
+            BufferedReader reader = new BufferedReader(new FileReader(file));
+            BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile));
+
+            String currentLine;
+            while((currentLine = reader.readLine()) != null) {
+                String trimmedLine = currentLine.trim();
+                if(trimmedLine.equals(oldLine)) {
+                    writer.write(newLine);
+                    writer.newLine();
+                    continue;
+                }
+                writer.write(currentLine);
+                writer.newLine();
+            }
+
+            writer.close();
+            reader.close();
+            if (file.delete()) //noinspection ResultOfMethodCallIgnored
+                tempFile.renameTo(file);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     private void setCard(int index) {
         if (index == -1) index = current;
         else current = index;
@@ -240,6 +263,41 @@ public class Controller {
         questionText.setText(card.getQuestion());
         answerText.clear();
         showButton.setText("Show");
+    }
+
+    private Dialog createCardDialog(String title) {
+        Dialog<Card> dialog = new Dialog<>();
+        dialog.setTitle(title);
+        dialog.setResizable(false);
+        dialog.initOwner(showButton.getScene().getWindow());
+
+        Label question = new Label("Question: ");
+        Label answer = new Label("Answer: ");
+
+        TextField questionInput = new TextField();
+        TextField answerInput = new TextField();
+
+        GridPane grid = new GridPane();
+        grid.add(question, 1, 1);
+        grid.add(questionInput, 2, 1);
+        grid.add(new Label(""), 1, 2);
+        grid.add(new Label(""), 2, 2);
+        grid.add(answer, 1, 3);
+        grid.add(answerInput, 2, 3);
+        dialog.getDialogPane().setContent(grid);
+
+        ButtonType saveButton = new ButtonType("Save");
+        dialog.getDialogPane().getButtonTypes().add(saveButton);
+
+        dialog.setResultConverter(button -> {
+            if (button == saveButton) {
+                return new Card(questionInput.getText(), answerInput.getText());
+            }
+
+            return null;
+        });
+
+        return dialog;
     }
 
     private void createInfoAlert(String message) {
