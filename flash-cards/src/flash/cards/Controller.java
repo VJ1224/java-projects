@@ -1,8 +1,12 @@
 package flash.cards;
 
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
@@ -14,6 +18,7 @@ public class Controller {
     @FXML private Label setName;
 
     @FXML private Button showButton;
+    @FXML private Button editButton;
 
     @FXML private TextArea questionText;
     @FXML private TextArea answerText;
@@ -78,15 +83,23 @@ public class Controller {
             return;
         }
 
-        Dialog dialog = createCardDialog("Edit Card");
+        setCardEditable(true);
+        Button saveButton = createButton("Save Card", editButton.getLayoutX(), editButton.getLayoutY());
 
-        Optional<Card> result = dialog.showAndWait();
+        EventHandler<ActionEvent> event = e -> {
+            Card oldCard = cards.get(current);
+            Card newCard = new Card(questionText.getText(), answerText.getText());
+            cards.set(current, newCard);
+            setCard(current);
 
-        Card oldCard = cards.get(current);
-        cards.set(current, result.get());
-        setCard(current);
+            setCardEditable(false);
+            Pane pane = (Pane) editButton.getParent();
+            pane.getChildren().remove(saveButton);
 
-        new Thread(() -> replaceLine(oldCard.toString(), result.get().toString())).start();
+            new Thread(() -> replaceLine(oldCard.toString(), newCard.toString())).start();
+        };
+
+        saveButton.setOnAction(event);
     }
 
     @FXML
@@ -307,6 +320,16 @@ public class Controller {
         alert.show();
     }
 
+    private Button createButton(String text, double x, double y) {
+        Button btn = new Button(text);
+        btn.setLayoutX(x);
+        btn.setLayoutY(y);
+        Pane pane = (Pane) showButton.getParent();
+        pane.getChildren().add(btn);
+
+        return btn;
+    }
+
     private String removeExt(String file) {
         return file.substring(0, file.length() - 4);
     }
@@ -317,5 +340,13 @@ public class Controller {
         current = -1;
         showButton.setText("Show");
         shown = false;
+    }
+
+    private void setCardEditable(boolean is) {
+        showAnswer();
+        questionText.setEditable(is);
+        answerText.setEditable(is);
+        editButton.setVisible(!is);
+        showButton.setDisable(is);
     }
 }
