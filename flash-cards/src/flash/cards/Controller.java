@@ -56,14 +56,11 @@ public class Controller {
         Stage stage = (Stage) showButton.getScene().getWindow();
         File file = fileChooser.showOpenDialog(stage);
 
-        if (file != null) {
-            clearSet();
-            filename = file.getAbsolutePath();
-            setName.setText(removeExt(file.getName()));
-        } else {
-            return;
-        }
+        if (file == null) return;
 
+        clearSet();
+        filename = file.getAbsolutePath();
+        setName.setText(removeExt(file.getName()));
         readCards();
     }
 
@@ -146,6 +143,16 @@ public class Controller {
         } else createInfoAlert("First card");
     }
 
+    private void setCard(int index) {
+        if (index == -1) index = current;
+        else current = index;
+
+        Card card = cards.get(index);
+        questionText.setText(card.getQuestion());
+        answerText.clear();
+        showButton.setText("Show");
+    }
+
     @FXML
     private void showAnswer() {
         if (questionText.getText().isEmpty()) return;
@@ -188,10 +195,10 @@ public class Controller {
             Stage stage = (Stage) showButton.getScene().getWindow();
             File file = fileChooser.showSaveDialog(stage);
 
-            if (file != null) {
-                filename = file.getAbsolutePath();
-                setName.setText(removeExt(file.getName()));
-            } else return;
+            if (file == null) return;
+
+            filename = file.getAbsolutePath();
+            setName.setText(removeExt(file.getName()));
         }
 
         new Thread(() -> saveToFile(question, answer)).start();
@@ -261,21 +268,12 @@ public class Controller {
 
             writer.close();
             reader.close();
+
             if (file.delete()) //noinspection ResultOfMethodCallIgnored
                 tempFile.renameTo(file);
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-
-    private void setCard(int index) {
-        if (index == -1) index = current;
-        else current = index;
-
-        Card card = cards.get(index);
-        questionText.setText(card.getQuestion());
-        answerText.clear();
-        showButton.setText("Show");
     }
 
     private Dialog createCardDialog(String title) {
