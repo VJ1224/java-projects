@@ -11,3 +11,9 @@ Track bugs that I face in personal projects.
 * View details about bugs
 
 * Delete solved bugs
+
+## What I Learnt
+
+* JavaFX GUI Development
+
+* JDBC Connectivity and CRUD operations with a database
