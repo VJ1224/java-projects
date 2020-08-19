@@ -282,6 +282,7 @@ public class Controller {
         }
     }
 
+    @SuppressWarnings("SameParameterValue")
     private Dialog<Card> createCardDialog(String title) {
         Dialog<Card> dialog = new Dialog<>();
         dialog.setTitle(title);
@@ -324,6 +325,7 @@ public class Controller {
         alert.show();
     }
 
+    @SuppressWarnings("SameParameterValue")
     private Button createButton(String text, double x, double y) {
         Button btn = new Button(text);
         btn.setLayoutX(x);
