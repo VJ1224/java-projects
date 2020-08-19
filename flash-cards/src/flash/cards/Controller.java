@@ -66,7 +66,7 @@ public class Controller {
 
     @FXML
     private void newCard() {
-        Dialog dialog = createCardDialog("New Card");
+        Dialog<Card> dialog = createCardDialog("New Card");
 
         Optional<Card> result = dialog.showAndWait();
 
@@ -282,7 +282,7 @@ public class Controller {
         }
     }
 
-    private Dialog createCardDialog(String title) {
+    private Dialog<Card> createCardDialog(String title) {
         Dialog<Card> dialog = new Dialog<>();
         dialog.setTitle(title);
         dialog.setResizable(false);
