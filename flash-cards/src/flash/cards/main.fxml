@@ -32,22 +32,22 @@
     </MenuBar>
     <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="320.0" prefWidth="480.0" VBox.vgrow="ALWAYS">
          <children>
-            <TextArea fx:id="questionText" editable="false" focusTraversable="false" layoutX="91.0" layoutY="90.0" prefHeight="60.0" prefWidth="303.0" />
-            <Label focusTraversable="false" layoutX="215.0" layoutY="56.0" text="Question">
+            <TextArea fx:id="questionText" editable="false" focusTraversable="false" layoutX="88.0" layoutY="48.0" prefHeight="60.0" prefWidth="303.0" />
+            <Label focusTraversable="false" layoutX="212.0" layoutY="14.0" text="Question">
                <font>
                   <Font size="14.0" />
                </font>
             </Label>
-            <Label focusTraversable="false" layoutX="220.0" layoutY="164.0" text="Answer">
+            <Label focusTraversable="false" layoutX="217.0" layoutY="122.0" text="Answer">
                <font>
                   <Font size="14.0" />
                </font>
             </Label>
-            <TextArea fx:id="answerText" editable="false" focusTraversable="false" layoutX="91.0" layoutY="197.0" prefHeight="60.0" prefWidth="303.0" />
-            <Button layoutX="236.0" layoutY="14.0" mnemonicParsing="false" onAction="#newCard" text="New Card" />
-            <Button fx:id="prevButton" layoutX="91.0" layoutY="277.0" mnemonicParsing="false" onAction="#prevCard" prefHeight="25.0" prefWidth="60.0" text="Prev" />
-            <Button fx:id="showButton" layoutX="210.0" layoutY="277.0" mnemonicParsing="false" onAction="#showAnswer" prefHeight="25.0" prefWidth="60.0" text="Show" />
-            <Button fx:id="nextButton" layoutX="334.0" layoutY="277.0" mnemonicParsing="false" onAction="#nextCard" prefHeight="25.0" prefWidth="60.0" text="Next" />
+            <TextArea fx:id="answerText" editable="false" focusTraversable="false" layoutX="88.0" layoutY="155.0" prefHeight="60.0" prefWidth="303.0" />
+            <Button layoutX="236.0" layoutY="295.0" mnemonicParsing="false" onAction="#newCard" text="New Card" />
+            <Button fx:id="prevButton" layoutX="88.0" layoutY="222.0" mnemonicParsing="false" onAction="#prevCard" prefHeight="25.0" prefWidth="60.0" text="Prev" />
+            <Button fx:id="showButton" layoutX="331.0" layoutY="119.0" mnemonicParsing="false" onAction="#showAnswer" prefHeight="25.0" prefWidth="60.0" text="Show" />
+            <Button fx:id="nextButton" layoutX="331.0" layoutY="222.0" mnemonicParsing="false" onAction="#nextCard" prefHeight="25.0" prefWidth="60.0" text="Next" />
             <Label focusTraversable="false" layoutX="14.0" layoutY="17.0" text="Set:">
                <font>
                   <Font size="14.0" />
@@ -58,8 +58,9 @@
                   <Font size="14.0" />
                </font>
             </Label>
-            <Button layoutX="387.0" layoutY="14.0" mnemonicParsing="false" onAction="#deleteCard" text="Delete Card" />
-            <Button fx:id="editButton" layoutX="313.0" layoutY="14.0" mnemonicParsing="false" onAction="#editCard" text="Edit Card" />
+            <Button layoutX="387.0" layoutY="295.0" mnemonicParsing="false" onAction="#deleteCard" text="Delete Card" />
+            <Button fx:id="editButton" layoutX="313.0" layoutY="295.0" mnemonicParsing="false" onAction="#editCard" text="Edit Card" />
+            <Button layoutX="10.0" layoutY="295.0" mnemonicParsing="false" onAction="#shuffleCards" text="Shuffle" />
          </children>
     </AnchorPane>
   </children>

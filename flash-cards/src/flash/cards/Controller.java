@@ -3,7 +3,6 @@ package flash.cards;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
@@ -12,6 +11,7 @@ import javafx.stage.Stage;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Optional;
 
 public class Controller {
@@ -115,6 +115,12 @@ public class Controller {
 
         if (!cards.isEmpty()) setCard(0);
         else clearBox();
+    }
+
+    @FXML
+    private void shuffleCards() {
+        Collections.shuffle(cards);
+        setCard(0);
     }
 
     @FXML
