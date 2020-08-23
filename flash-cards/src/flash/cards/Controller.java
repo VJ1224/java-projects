@@ -1,6 +1,5 @@
 package flash.cards;
 
-import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -86,16 +85,17 @@ public class Controller {
         Button saveButton = createButton("Save Card", editButton.getLayoutX(), editButton.getLayoutY());
 
         EventHandler<ActionEvent> event = e -> {
-            Card oldCard = cards.get(current);
-            Card newCard = new Card(questionText.getText(), answerText.getText());
-            cards.set(current, newCard);
+            Card card = cards.get(current);
+            String oldString = card.toString();
+            card.setQuestion(questionText.getText());
+            card.setAnswer(answerText.getText());
             setCard(current);
 
             setCardEditable(false);
             Pane pane = (Pane) editButton.getParent();
             pane.getChildren().remove(saveButton);
 
-            new Thread(() -> replaceLine(oldCard.toString(), newCard.toString())).start();
+            new Thread(() -> replaceLine(oldString, card.toString())).start();
         };
 
         saveButton.setOnAction(event);
