@@ -16,6 +16,11 @@ public class Main extends Application {
         primaryStage.setScene(new Scene(root, 480, 360));
         primaryStage.getIcons().add(new Image("file:resources/images/icon.jpg"));
         primaryStage.show();
+
+        primaryStage.setOnCloseRequest(e -> {
+            primaryStage.close();
+            System.exit(0);
+        });
     }
 
     public static void main(String[] args) {

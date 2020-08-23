@@ -1,5 +1,6 @@
 package flash.cards;
 
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -41,6 +42,7 @@ public class Controller {
     private void quit() {
         Stage stage = (Stage) showButton.getScene().getWindow();
         stage.close();
+        System.exit(0);
     }
 
     @FXML
@@ -119,6 +121,11 @@ public class Controller {
 
     @FXML
     private void shuffleCards() {
+        if (cards.isEmpty()) {
+            createInfoAlert("Empty set");
+            return;
+        }
+
         Collections.shuffle(cards);
         setCard(0);
     }
