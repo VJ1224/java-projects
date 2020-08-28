@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox prefHeight="360.0" prefWidth="480.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="flash.cards.Controller">
+<VBox prefHeight="360.0" prefWidth="480.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="flash.cards.Controller">
   <children>
     <MenuBar VBox.vgrow="NEVER">
       <menus>
@@ -23,6 +23,13 @@
             <MenuItem mnemonicParsing="false" onAction="#quit" text="Quit" />
           </items>
         </Menu>
+            <Menu mnemonicParsing="false" text="Edit">
+               <items>
+                  <MenuItem mnemonicParsing="false" onAction="#newCard" text="New Card" />
+                  <MenuItem mnemonicParsing="false" onAction="#editCard" text="Edit Card" />
+                  <MenuItem mnemonicParsing="false" onAction="#deleteCard" text="Delete Card" />
+               </items>
+            </Menu>
         <Menu mnemonicParsing="false" text="Help">
           <items>
             <MenuItem mnemonicParsing="false" text="About Flash Cards" />
@@ -32,22 +39,21 @@
     </MenuBar>
     <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="320.0" prefWidth="480.0" VBox.vgrow="ALWAYS">
          <children>
-            <TextArea fx:id="questionText" editable="false" focusTraversable="false" layoutX="88.0" layoutY="48.0" prefHeight="60.0" prefWidth="303.0" />
-            <Label focusTraversable="false" layoutX="212.0" layoutY="14.0" text="Question">
+            <TextArea fx:id="questionText" editable="false" focusTraversable="false" layoutX="88.0" layoutY="84.0" prefHeight="60.0" prefWidth="303.0" />
+            <Label focusTraversable="false" layoutX="212.0" layoutY="50.0" text="Question">
                <font>
                   <Font size="14.0" />
                </font>
             </Label>
-            <Label focusTraversable="false" layoutX="217.0" layoutY="122.0" text="Answer">
+            <Label focusTraversable="false" layoutX="217.0" layoutY="158.0" text="Answer">
                <font>
                   <Font size="14.0" />
                </font>
             </Label>
-            <TextArea fx:id="answerText" editable="false" focusTraversable="false" layoutX="88.0" layoutY="155.0" prefHeight="60.0" prefWidth="303.0" />
-            <Button layoutX="236.0" layoutY="295.0" mnemonicParsing="false" onAction="#newCard" text="New Card" />
-            <Button fx:id="prevButton" layoutX="88.0" layoutY="222.0" mnemonicParsing="false" onAction="#prevCard" prefHeight="25.0" prefWidth="60.0" text="Prev" />
-            <Button fx:id="showButton" layoutX="331.0" layoutY="119.0" mnemonicParsing="false" onAction="#showAnswer" prefHeight="25.0" prefWidth="60.0" text="Show" />
-            <Button fx:id="nextButton" layoutX="331.0" layoutY="222.0" mnemonicParsing="false" onAction="#nextCard" prefHeight="25.0" prefWidth="60.0" text="Next" />
+            <TextArea fx:id="answerText" editable="false" focusTraversable="false" layoutX="88.0" layoutY="191.0" prefHeight="60.0" prefWidth="303.0" />
+            <Button fx:id="prevButton" layoutX="88.0" layoutY="258.0" mnemonicParsing="false" onAction="#prevCard" prefHeight="25.0" prefWidth="60.0" text="Prev" />
+            <Button fx:id="showButton" layoutX="210.0" layoutY="258.0" mnemonicParsing="false" onAction="#showAnswer" prefHeight="25.0" prefWidth="60.0" text="Show" />
+            <Button fx:id="nextButton" layoutX="331.0" layoutY="258.0" mnemonicParsing="false" onAction="#nextCard" prefHeight="25.0" prefWidth="60.0" text="Next" />
             <Label focusTraversable="false" layoutX="14.0" layoutY="17.0" text="Set:">
                <font>
                   <Font size="14.0" />
@@ -58,8 +64,6 @@
                   <Font size="14.0" />
                </font>
             </Label>
-            <Button layoutX="387.0" layoutY="295.0" mnemonicParsing="false" onAction="#deleteCard" text="Delete Card" />
-            <Button fx:id="editButton" layoutX="313.0" layoutY="295.0" mnemonicParsing="false" onAction="#editCard" text="Edit Card" />
             <Button layoutX="10.0" layoutY="295.0" mnemonicParsing="false" onAction="#shuffleCards" text="Shuffle" />
          </children>
     </AnchorPane>

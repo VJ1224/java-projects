@@ -18,7 +18,6 @@ public class Controller {
     @FXML private Label setName;
 
     @FXML private Button showButton;
-    @FXML private Button editButton;
 
     @FXML private TextArea questionText;
     @FXML private TextArea answerText;
@@ -82,7 +81,7 @@ public class Controller {
         }
 
         setCardEditable(true);
-        Button saveButton = createButton("Save Card", editButton.getLayoutX(), editButton.getLayoutY());
+        Button saveButton = createButton("Save Card", 387, 295);
 
         EventHandler<ActionEvent> event = e -> {
             Card card = cards.get(current);
@@ -92,7 +91,7 @@ public class Controller {
             setCard(current);
 
             setCardEditable(false);
-            Pane pane = (Pane) editButton.getParent();
+            Pane pane = (Pane) showButton.getParent();
             pane.getChildren().remove(saveButton);
 
             new Thread(() -> replaceLine(oldString, card.toString())).start();
@@ -359,7 +358,6 @@ public class Controller {
         showAnswer();
         questionText.setEditable(is);
         answerText.setEditable(is);
-        editButton.setVisible(!is);
         showButton.setDisable(is);
     }
 }
