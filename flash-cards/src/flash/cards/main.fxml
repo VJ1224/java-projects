@@ -23,10 +23,11 @@
             <MenuItem mnemonicParsing="false" onAction="#quit" text="Quit" />
           </items>
         </Menu>
-            <Menu mnemonicParsing="false" text="Edit">
+            <Menu fx:id="editMenu" mnemonicParsing="false" text="Edit">
                <items>
                   <MenuItem mnemonicParsing="false" onAction="#newCard" text="New Card" />
                   <MenuItem mnemonicParsing="false" onAction="#editCard" text="Edit Card" />
+                  <MenuItem fx:id="saveMenuItem" disable="true" mnemonicParsing="false" onAction="#saveEditCard" text="Save Card" />
                   <MenuItem mnemonicParsing="false" onAction="#deleteCard" text="Delete Card" />
                </items>
             </Menu>

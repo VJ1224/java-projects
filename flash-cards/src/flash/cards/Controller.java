@@ -1,11 +1,8 @@
 package flash.cards;
 
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Pane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
@@ -21,6 +18,8 @@ public class Controller {
 
     @FXML private TextArea questionText;
     @FXML private TextArea answerText;
+
+    @FXML private MenuItem saveMenuItem;
 
     FileChooser fileChooser = new FileChooser();
     FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("TXT files (*.txt)", "*.txt");
@@ -81,23 +80,19 @@ public class Controller {
         }
 
         setCardEditable(true);
-        Button saveButton = createButton("Save Card", 387, 295);
+    }
 
-        EventHandler<ActionEvent> event = e -> {
-            Card card = cards.get(current);
-            String oldString = card.toString();
-            card.setQuestion(questionText.getText());
-            card.setAnswer(answerText.getText());
-            setCard(current);
+    @FXML
+    private void saveEditCard() {
+        Card card = cards.get(current);
+        String oldString = card.toString();
+        card.setQuestion(questionText.getText());
+        card.setAnswer(answerText.getText());
+        setCard(current);
 
-            setCardEditable(false);
-            Pane pane = (Pane) showButton.getParent();
-            pane.getChildren().remove(saveButton);
+        setCardEditable(false);
 
-            new Thread(() -> replaceLine(oldString, card.toString())).start();
-        };
-
-        saveButton.setOnAction(event);
+        new Thread(() -> replaceLine(oldString, card.toString())).start();
     }
 
     @FXML
@@ -331,17 +326,6 @@ public class Controller {
         alert.show();
     }
 
-    @SuppressWarnings("SameParameterValue")
-    private Button createButton(String text, double x, double y) {
-        Button btn = new Button(text);
-        btn.setLayoutX(x);
-        btn.setLayoutY(y);
-        Pane pane = (Pane) showButton.getParent();
-        pane.getChildren().add(btn);
-
-        return btn;
-    }
-
     private String removeExt(String file) {
         return file.substring(0, file.length() - 4);
     }
@@ -359,5 +343,6 @@ public class Controller {
         questionText.setEditable(is);
         answerText.setEditable(is);
         showButton.setDisable(is);
+        saveMenuItem.setDisable(!is);
     }
 }
