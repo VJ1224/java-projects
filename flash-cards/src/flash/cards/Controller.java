@@ -1,5 +1,6 @@
 package flash.cards;
 
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
@@ -7,19 +8,21 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Optional;
+import java.util.*;
 
 public class Controller {
     @FXML private Label setName;
+    @FXML private Label timerLabel;
 
     @FXML private Button showButton;
+    @FXML private Button timerButton;
 
     @FXML private TextArea questionText;
     @FXML private TextArea answerText;
 
     @FXML private MenuItem saveMenuItem;
+
+    Timer timer;
 
     FileChooser fileChooser = new FileChooser();
     FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("TXT files (*.txt)", "*.txt");
@@ -28,6 +31,7 @@ public class Controller {
     String filename = null;
     int current = -1;
     boolean shown = false;
+    int time = -1;
 
     @FXML
     private void initialize() {
@@ -174,6 +178,29 @@ public class Controller {
         }
 
         shown = !shown;
+    }
+
+    @FXML
+    private void setTimer() {
+        if (time != -1) {
+            time = -1;
+            timerLabel.setText("00:00:00");
+            timerButton.setText("Start");
+            timer.cancel();
+            timer.purge();
+        } else {
+            timerButton.setText("Stop");
+
+            timer = new Timer();
+            timer.scheduleAtFixedRate(new TimerTask() {
+                public void run() {
+                    Platform.runLater(() -> {
+                        time++;
+                        timerLabel.setText(formatSeconds(time));
+                    });
+                }
+            }, 0, 1000);
+        }
     }
 
     private void readCards() {
@@ -344,5 +371,13 @@ public class Controller {
         answerText.setEditable(is);
         showButton.setDisable(is);
         saveMenuItem.setDisable(!is);
+    }
+
+    private String formatSeconds(int seconds) {
+        int hours = seconds / 3600;
+        seconds %= 3600;
+        int minutes = seconds / 60 ;
+        seconds %= 60;
+        return String.format("%02d:%02d:%02d", hours, minutes, seconds);
     }
 }
