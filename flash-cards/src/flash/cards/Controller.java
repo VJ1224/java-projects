@@ -13,6 +13,8 @@ import java.util.*;
 public class Controller {
     @FXML private Label setLabel;
     @FXML private Label timerLabel;
+    @FXML private Label currentLabel;
+    @FXML private Label totalLabel;
 
     @FXML private Button showButton;
     @FXML private Button prevButton;
@@ -164,6 +166,8 @@ public class Controller {
         questionText.setText(card.getQuestion());
         answerText.clear();
         showButton.setText("Show");
+        currentLabel.setText(Integer.toString(current + 1));
+        totalLabel.setText(Integer.toString(cards.size()));
     }
 
     @FXML

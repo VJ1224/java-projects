@@ -77,6 +77,21 @@
                   <Font size="14.0" />
                </font>
             </Label>
+            <Label fx:id="currentLabel" layoutX="202.0" layoutY="17.0" text="0">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Label layoutX="240.0" layoutY="17.0" text="/">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Label fx:id="totalLabel" layoutX="278.0" layoutY="17.0" text="0">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
          </children>
     </AnchorPane>
   </children>
