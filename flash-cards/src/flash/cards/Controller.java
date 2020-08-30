@@ -15,6 +15,8 @@ public class Controller {
     @FXML private Label timerLabel;
 
     @FXML private Button showButton;
+    @FXML private Button prevButton;
+    @FXML private Button nextButton;
 
     @FXML private TextArea questionText;
     @FXML private TextArea answerText;
@@ -113,7 +115,7 @@ public class Controller {
 
         cards.remove(current);
 
-        if (!cards.isEmpty()) setCard(0);
+        if (!cards.isEmpty()) setCard(current - 1);
         else clearBox();
     }
 
@@ -364,13 +366,15 @@ public class Controller {
         shown = false;
     }
 
-    private void setCardEditable(boolean is) {
+    private void setCardEditable(boolean value) {
         showAnswer();
-        questionText.setEditable(is);
-        answerText.setEditable(is);
-        showButton.setDisable(is);
-        saveMenuItem.setDisable(!is);
-        editMenuItem.setDisable(is);
+        questionText.setEditable(value);
+        answerText.setEditable(value);
+        showButton.setDisable(value);
+        prevButton.setDisable(value);
+        nextButton.setDisable(value);
+        saveMenuItem.setDisable(!value);
+        editMenuItem.setDisable(value);
     }
 
     private String formatSeconds(int seconds) {

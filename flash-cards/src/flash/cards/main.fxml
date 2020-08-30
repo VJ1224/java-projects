@@ -45,7 +45,7 @@
         </Menu>
       </menus>
     </MenuBar>
-    <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="320.0" prefWidth="480.0" VBox.vgrow="ALWAYS">
+    <AnchorPane focusTraversable="true" maxHeight="-1.0" maxWidth="-1.0" prefHeight="320.0" prefWidth="480.0" VBox.vgrow="ALWAYS">
          <children>
             <TextArea fx:id="questionText" editable="false" focusTraversable="false" layoutX="88.0" layoutY="114.0" prefHeight="60.0" prefWidth="303.0" />
             <Label focusTraversable="false" layoutX="212.0" layoutY="80.0" text="Question">
