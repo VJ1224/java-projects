@@ -11,10 +11,9 @@ import java.io.*;
 import java.util.*;
 
 public class Controller {
-    @FXML private Label setLabel;
+    @FXML private Label deckLabel;
     @FXML private Label timerLabel;
     @FXML private Label currentLabel;
-    @FXML private Label totalLabel;
 
     @FXML private Button showButton;
     @FXML private Button prevButton;
@@ -52,22 +51,22 @@ public class Controller {
     }
 
     @FXML
-    private void clearSet() {
+    private void clearDeck() {
         clearBox();
         cards.clear();
         filename = null;
-        setLabel.setText("-");
+        deckLabel.setText("-");
     }
 
     @FXML
-    private void openSet() {
+    private void openDeck() {
         File file = fileChooser.showOpenDialog(primaryStage);
 
         if (file == null) return;
 
-        clearSet();
+        clearDeck();
         filename = file.getAbsolutePath();
-        setLabel.setText(removeExt(file.getName()));
+        deckLabel.setText(removeExt(file.getName()));
         readCards();
     }
 
@@ -122,9 +121,9 @@ public class Controller {
     }
 
     @FXML
-    private void shuffleCards() {
+    private void shuffleDeck() {
         if (cards.isEmpty()) {
-            createInfoAlert("Empty Set", "No set loaded.");
+            createInfoAlert("Empty Deck", "No deck of cards loaded.");
             return;
         }
 
@@ -135,27 +134,29 @@ public class Controller {
     @FXML
     private void nextCard() {
         if (cards.isEmpty()) {
-            createInfoAlert("Empty Set", "No set loaded.");
+            createInfoAlert("Empty Deck", "No deck of cards loaded.");
             return;
         }
 
         if (cards.size() > current + 1) {
-            current++;
-            setCard(-1);
-        } else createInfoAlert("Last Card", "End of set.");
+            setCard(current + 1);
+        } else {
+            setCard(0);
+        }
     }
 
     @FXML
     private void prevCard() {
         if (cards.isEmpty()) {
-            createInfoAlert("Empty Set", "No set loaded.");
+            createInfoAlert("Empty Deck", "No deck of cards loaded.");
             return;
         }
 
         if (current - 1 >= 0) {
-            current--;
-            setCard(-1);
-        } else createInfoAlert("First Card", "Beginning of set.");
+            setCard(current - 1);
+        } else {
+            setCard(cards.size() - 1);
+        }
     }
 
     private void setCard(int index) {
@@ -166,8 +167,7 @@ public class Controller {
         questionText.setText(card.getQuestion());
         answerText.clear();
         showButton.setText("Show");
-        currentLabel.setText(Integer.toString(current + 1));
-        totalLabel.setText(Integer.toString(cards.size()));
+        currentLabel.setText((current + 1) + " / " + cards.size());
     }
 
     @FXML
@@ -237,7 +237,7 @@ public class Controller {
             if (file == null) return;
 
             filename = file.getAbsolutePath();
-            setLabel.setText(removeExt(file.getName()));
+            deckLabel.setText(removeExt(file.getName()));
         }
 
         new Thread(() -> saveToFile(question, answer)).start();
