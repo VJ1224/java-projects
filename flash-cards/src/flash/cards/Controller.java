@@ -11,17 +11,19 @@ import java.io.*;
 import java.util.*;
 
 public class Controller {
-    @FXML private Label setName;
+    @FXML private Label setLabel;
     @FXML private Label timerLabel;
 
     @FXML private Button showButton;
-    @FXML private Button timerButton;
 
     @FXML private TextArea questionText;
     @FXML private TextArea answerText;
 
+    @FXML private MenuItem editMenuItem;
     @FXML private MenuItem saveMenuItem;
+    @FXML private MenuItem timerMenuItem;
 
+    Stage primaryStage;
     Timer timer;
 
     FileChooser fileChooser = new FileChooser();
@@ -36,13 +38,12 @@ public class Controller {
     @FXML
     private void initialize() {
         fileChooser.getExtensionFilters().add(extFilter);
-        setName.setText("-");
+
     }
 
     @FXML
     private void quit() {
-        Stage stage = (Stage) showButton.getScene().getWindow();
-        stage.close();
+        primaryStage.close();
         System.exit(0);
     }
 
@@ -51,19 +52,18 @@ public class Controller {
         clearBox();
         cards.clear();
         filename = null;
-        setName.setText("-");
+        setLabel.setText("-");
     }
 
     @FXML
     private void openSet() {
-        Stage stage = (Stage) showButton.getScene().getWindow();
-        File file = fileChooser.showOpenDialog(stage);
+        File file = fileChooser.showOpenDialog(primaryStage);
 
         if (file == null) return;
 
         clearSet();
         filename = file.getAbsolutePath();
-        setName.setText(removeExt(file.getName()));
+        setLabel.setText(removeExt(file.getName()));
         readCards();
     }
 
@@ -79,7 +79,7 @@ public class Controller {
     @FXML
     private void editCard() {
         if (current == -1) {
-            createInfoAlert("No Card");
+            createInfoAlert("No Card", "No card selected.");
             return;
         }
 
@@ -87,7 +87,7 @@ public class Controller {
     }
 
     @FXML
-    private void saveEditCard() {
+    private void saveCard() {
         Card card = cards.get(current);
         String oldString = card.toString();
         card.setQuestion(questionText.getText());
@@ -102,7 +102,7 @@ public class Controller {
     @FXML
     private void deleteCard() {
         if (current == -1) {
-            createInfoAlert("No Card");
+            createInfoAlert("No Card", "No card selected.");
             return;
         }
 
@@ -120,7 +120,7 @@ public class Controller {
     @FXML
     private void shuffleCards() {
         if (cards.isEmpty()) {
-            createInfoAlert("Empty set");
+            createInfoAlert("Empty Set", "No set loaded.");
             return;
         }
 
@@ -131,27 +131,27 @@ public class Controller {
     @FXML
     private void nextCard() {
         if (cards.isEmpty()) {
-            createInfoAlert("Empty set");
+            createInfoAlert("Empty Set", "No set loaded.");
             return;
         }
 
         if (cards.size() > current + 1) {
             current++;
             setCard(-1);
-        } else createInfoAlert("Last card");
+        } else createInfoAlert("Last Card", "End of set.");
     }
 
     @FXML
     private void prevCard() {
         if (cards.isEmpty()) {
-            createInfoAlert("Empty set");
+            createInfoAlert("Empty Set", "No set loaded.");
             return;
         }
 
         if (current - 1 >= 0) {
             current--;
             setCard(-1);
-        } else createInfoAlert("First card");
+        } else createInfoAlert("First Card", "Beginning of set.");
     }
 
     private void setCard(int index) {
@@ -185,11 +185,11 @@ public class Controller {
         if (time != -1) {
             time = -1;
             timerLabel.setText("00:00:00");
-            timerButton.setText("Start");
+            timerMenuItem.setText("Start Timer");
             timer.cancel();
             timer.purge();
         } else {
-            timerButton.setText("Stop");
+            timerMenuItem.setText("Stop Timer");
 
             timer = new Timer();
             timer.scheduleAtFixedRate(new TimerTask() {
@@ -226,13 +226,12 @@ public class Controller {
         String answer = card.getAnswer();
 
         if (filename == null)  {
-            Stage stage = (Stage) showButton.getScene().getWindow();
-            File file = fileChooser.showSaveDialog(stage);
+            File file = fileChooser.showSaveDialog(primaryStage);
 
             if (file == null) return;
 
             filename = file.getAbsolutePath();
-            setName.setText(removeExt(file.getName()));
+            setLabel.setText(removeExt(file.getName()));
         }
 
         new Thread(() -> saveToFile(question, answer)).start();
@@ -315,7 +314,7 @@ public class Controller {
         Dialog<Card> dialog = new Dialog<>();
         dialog.setTitle(title);
         dialog.setResizable(false);
-        dialog.initOwner(showButton.getScene().getWindow());
+        dialog.initOwner(primaryStage);
 
         Label question = new Label("Question: ");
         Label answer = new Label("Answer: ");
@@ -346,10 +345,10 @@ public class Controller {
         return dialog;
     }
 
-    private void createInfoAlert(String message) {
+    private void createInfoAlert(String title, String message) {
         Alert alert = new Alert(Alert.AlertType.NONE, message, ButtonType.CLOSE);
-        alert.setTitle("Message");
-        alert.initOwner(showButton.getScene().getWindow());
+        alert.setTitle(title);
+        alert.initOwner(primaryStage);
         alert.show();
     }
 
@@ -371,6 +370,7 @@ public class Controller {
         answerText.setEditable(is);
         showButton.setDisable(is);
         saveMenuItem.setDisable(!is);
+        editMenuItem.setDisable(is);
     }
 
     private String formatSeconds(int seconds) {
@@ -379,5 +379,9 @@ public class Controller {
         int minutes = seconds / 60 ;
         seconds %= 60;
         return String.format("%02d:%02d:%02d", hours, minutes, seconds);
+    }
+
+    public void setStage(Stage stage) {
+        primaryStage = stage;
     }
 }

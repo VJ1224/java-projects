@@ -11,7 +11,12 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getResource("main.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("main.fxml"));
+        Parent root = loader.load();
+
+        Controller controller = loader.getController();
+        controller.setStage(primaryStage);
+
         primaryStage.setTitle("Flash Cards");
         primaryStage.setScene(new Scene(root, 480, 360));
         primaryStage.getIcons().add(new Image("file:resources/images/icon.jpg"));
