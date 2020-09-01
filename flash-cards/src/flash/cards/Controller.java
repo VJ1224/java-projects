@@ -1,5 +1,6 @@
 package flash.cards;
 
+import com.opencsv.CSVWriter;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -71,7 +72,16 @@ public class Controller {
         clearDeck();
         filename = file.getAbsolutePath();
         deckLabel.setText(removeExt(file.getName()));
-        readCards();
+
+        Thread thread = new Thread(this::readCards);
+        thread.start();
+
+        try {
+            thread.join();
+            nextCard();
+        } catch (InterruptedException exception) {
+            exception.printStackTrace();
+        }
     }
 
     @FXML
@@ -213,6 +223,36 @@ public class Controller {
         }
     }
 
+    @FXML
+    private void exportCSV() {
+        if (cards.isEmpty()) {
+            createInfoAlert("Empty Deck", "No deck loaded.");
+            return;
+        }
+
+        new Thread(() -> {
+            String[] header = {"question", "answer"};
+            List<String[]> data = new ArrayList<>();
+
+            for (Card card: cards) {
+                data.add(new String[] {card.getQuestion(), card.getAnswer()});
+            }
+
+            try {
+                File file = new File (removeExt(filename) + ".csv");
+                FileWriter outputFile = new FileWriter(file);
+                CSVWriter writer = new CSVWriter(outputFile);
+                writer.writeNext(header);
+                writer.writeAll(data);
+                writer.close();
+            } catch (IOException exception) {
+                exception.printStackTrace();
+            }
+        }).start();
+
+        createInfoAlert("Export CSV", "Export complete.");
+    }
+
     private void readCards() {
         try {
             String line;
@@ -225,7 +265,6 @@ public class Controller {
             }
 
             read.close();
-            nextCard();
         } catch (IOException exception) {
             exception.printStackTrace();
         }
