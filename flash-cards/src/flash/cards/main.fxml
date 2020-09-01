@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox prefHeight="360.0" prefWidth="480.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="flash.cards.Controller">
+<VBox prefHeight="360.0" prefWidth="480.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="flash.cards.Controller">
   <children>
     <MenuBar VBox.vgrow="NEVER">
       <menus>
@@ -40,14 +40,14 @@
             </Menu>
         <Menu mnemonicParsing="false" text="Help">
           <items>
-            <MenuItem mnemonicParsing="false" text="About" />
+            <MenuItem mnemonicParsing="false" onAction="#aboutApp" text="About" />
           </items>
         </Menu>
       </menus>
     </MenuBar>
     <AnchorPane focusTraversable="true" maxHeight="-1.0" maxWidth="-1.0" prefHeight="320.0" prefWidth="480.0" VBox.vgrow="ALWAYS">
          <children>
-            <TextArea fx:id="questionText" editable="false" focusTraversable="false" layoutX="88.0" layoutY="114.0" prefHeight="60.0" prefWidth="303.0" />
+            <TextArea fx:id="questionText" editable="false" focusTraversable="false" layoutX="88.0" layoutY="114.0" prefHeight="60.0" prefWidth="303.0" wrapText="true" />
             <Label focusTraversable="false" layoutX="212.0" layoutY="80.0" text="Question">
                <font>
                   <Font size="14.0" />
@@ -58,9 +58,9 @@
                   <Font size="14.0" />
                </font>
             </Label>
-            <TextArea fx:id="answerText" editable="false" focusTraversable="false" layoutX="88.0" layoutY="221.0" prefHeight="60.0" prefWidth="303.0" />
-            <Button fx:id="prevButton" focusTraversable="false" layoutX="10.0" layoutY="185.0" mnemonicParsing="false" onAction="#prevCard" prefHeight="25.0" prefWidth="40.0" text="←" />
-            <Button fx:id="nextButton" focusTraversable="false" layoutX="430.0" layoutY="185.0" mnemonicParsing="false" onAction="#nextCard" prefHeight="25.0" prefWidth="40.0" text="→" />
+            <TextArea fx:id="answerText" editable="false" focusTraversable="false" layoutX="88.0" layoutY="221.0" prefHeight="60.0" prefWidth="303.0" wrapText="true" />
+            <Button fx:id="prevButton" focusTraversable="false" layoutX="88.0" layoutY="185.0" mnemonicParsing="false" onAction="#prevCard" prefHeight="25.0" prefWidth="40.0" text="←" />
+            <Button fx:id="nextButton" focusTraversable="false" layoutX="351.0" layoutY="185.0" mnemonicParsing="false" onAction="#nextCard" prefHeight="25.0" prefWidth="40.0" text="→" />
             <Button fx:id="showButton" focusTraversable="false" layoutX="210.0" layoutY="288.0" mnemonicParsing="false" onAction="#showAnswer" prefHeight="25.0" prefWidth="60.0" text="Show" />
             <Label focusTraversable="false" layoutX="10.0" layoutY="17.0" text="Deck:">
                <font>

@@ -29,8 +29,8 @@ public class Controller {
     Stage primaryStage;
     Timer timer;
 
-    FileChooser fileChooser = new FileChooser();
-    FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("TXT files (*.txt)", "*.txt");
+    final FileChooser fileChooser = new FileChooser();
+    final FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("TXT files (*.txt)", "*.txt");
 
     private final ArrayList<Card> cards = new ArrayList<>();
     String filename = null;
@@ -41,7 +41,11 @@ public class Controller {
     @FXML
     private void initialize() {
         fileChooser.getExtensionFilters().add(extFilter);
+    }
 
+    @FXML
+    private void aboutApp() {
+        createInfoAlert("About", "This app was created by Vansh Jain.\nGitHub: github.com/VJ1224");
     }
 
     @FXML
@@ -123,7 +127,7 @@ public class Controller {
     @FXML
     private void shuffleDeck() {
         if (cards.isEmpty()) {
-            createInfoAlert("Empty Deck", "No deck of cards loaded.");
+            createInfoAlert("Empty Deck", "No deck loaded.");
             return;
         }
 
@@ -134,7 +138,7 @@ public class Controller {
     @FXML
     private void nextCard() {
         if (cards.isEmpty()) {
-            createInfoAlert("Empty Deck", "No deck of cards loaded.");
+            createInfoAlert("Empty Deck", "No deck loaded.");
             return;
         }
 
@@ -148,7 +152,7 @@ public class Controller {
     @FXML
     private void prevCard() {
         if (cards.isEmpty()) {
-            createInfoAlert("Empty Deck", "No deck of cards loaded.");
+            createInfoAlert("Empty Deck", "No deck loaded.");
             return;
         }
 
@@ -366,6 +370,7 @@ public class Controller {
         questionText.clear();
         answerText.clear();
         current = -1;
+        currentLabel.setText("0 / 0");
         showButton.setText("Show");
         shown = false;
     }
