@@ -33,7 +33,8 @@ public class Controller {
     final FileChooser fileChooser = new FileChooser();
     final FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("TXT files (*.txt)", "*.txt");
 
-    private final ArrayList<Card> cards = new ArrayList<>();
+    private final List<Card> cards = new ArrayList<>();
+    private final List<String> timerLog = new ArrayList<>();
     String filename = null;
     int current = -1;
     boolean shown = false;
@@ -204,8 +205,11 @@ public class Controller {
     private void setTimer() {
         if (time != -1) {
             time = -1;
+
+            timerLog.add(deckLabel.getText() + ": " + timerLabel.getText());
             timerLabel.setText("00:00:00");
             timerMenuItem.setText("Start Timer");
+
             timer.cancel();
             timer.purge();
         } else {
@@ -221,6 +225,16 @@ public class Controller {
                 }
             }, 0, 1000);
         }
+    }
+
+    @FXML
+    private void showTimerLog() {
+        StringBuilder message = new StringBuilder();
+        for (String timestamp: timerLog) {
+            message.append(timestamp);
+            message.append("\n");
+        }
+        createInfoAlert("History", message.toString());
     }
 
     @FXML
