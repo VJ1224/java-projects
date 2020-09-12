@@ -174,6 +174,49 @@ public class Controller {
         }
     }
 
+    @FXML
+    private void goToCard() {
+        Dialog<Card> dialog = new Dialog<>();
+        dialog.setTitle("Go to Card");
+        dialog.setResizable(false);
+        dialog.initOwner(primaryStage);
+
+        Label numberLabel = new Label("Card No: ");
+
+        TextField numberInput = new TextField();
+
+        GridPane grid = new GridPane();
+        grid.add(numberLabel, 1, 1);
+        grid.add(numberInput, 2, 1);
+        dialog.getDialogPane().setContent(grid);
+
+        ButtonType goButton = new ButtonType("Go");
+        dialog.getDialogPane().getButtonTypes().add(goButton);
+
+        dialog.setResultConverter(button -> {
+            if (button == goButton) {
+                int index;
+                try {
+                    index = Integer.parseInt(numberInput.getText()) - 1;
+                } catch (NumberFormatException e) {
+                    e.printStackTrace();
+                    return null;
+                }
+
+                if (index >= 0 && index < cards.size()) {
+                    setCard(index);
+                    return null;
+                }
+
+                createInfoAlert("Out of Bounds", "Index out of bounds");
+            }
+
+            return null;
+        });
+
+        dialog.showAndWait();
+    }
+
     private void setCard(int index) {
         if (index == -1) index = current;
         else current = index;
@@ -274,8 +317,7 @@ public class Controller {
 
             while ((line = read.readLine()) != null) {
                 String[] words = line.split("~");
-                Card card = new Card(words[0], words[1]);
-                cards.add(card);
+                cards.add(new Card(words[0], words[1]));
             }
 
             read.close();

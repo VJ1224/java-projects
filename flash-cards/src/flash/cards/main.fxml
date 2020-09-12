@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox prefHeight="360.0" prefWidth="480.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="flash.cards.Controller">
+<VBox prefHeight="360.0" prefWidth="480.0" xmlns="http://javafx.com/javafx/" xmlns:fx="http://javafx.com/fxml/" fx:controller="flash.cards.Controller">
   <children>
     <MenuBar VBox.vgrow="NEVER">
       <menus>
@@ -26,6 +26,7 @@
         </Menu>
             <Menu mnemonicParsing="false" text="Edit">
                <items>
+                  <MenuItem mnemonicParsing="false" onAction="#goToCard" text="Go to Card" />
                   <MenuItem mnemonicParsing="false" onAction="#newCard" text="New Card" />
                   <MenuItem fx:id="editMenuItem" mnemonicParsing="false" onAction="#editCard" text="Edit Card" />
                   <MenuItem fx:id="saveMenuItem" disable="true" mnemonicParsing="false" onAction="#saveCard" text="Save Card" />
