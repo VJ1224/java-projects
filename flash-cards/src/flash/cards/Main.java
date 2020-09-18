@@ -5,6 +5,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 
 public class Main extends Application {
@@ -21,6 +23,18 @@ public class Main extends Application {
         primaryStage.setScene(new Scene(root, 480, 360));
         primaryStage.getIcons().add(new Image("file:resources/images/icon.jpg"));
         primaryStage.show();
+
+        primaryStage.addEventHandler(KeyEvent.KEY_PRESSED, (key) -> {
+            if (key.getCode() == KeyCode.LEFT) {
+                controller.prevCard();
+            } else if (key.getCode() == KeyCode.RIGHT) {
+                controller.nextCard();
+            } else if(key.getCode() == KeyCode.SPACE) {
+                controller.showAnswer();
+            }
+
+            key.consume();
+        });
 
         primaryStage.setOnCloseRequest(e -> {
             primaryStage.close();

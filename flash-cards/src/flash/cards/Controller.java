@@ -2,8 +2,11 @@ package flash.cards;
 
 import com.opencsv.CSVWriter;
 import javafx.application.Platform;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -39,6 +42,7 @@ public class Controller {
     int current = -1;
     boolean shown = false;
     int time = -1;
+
 
     @FXML
     private void initialize() {
@@ -147,7 +151,7 @@ public class Controller {
     }
 
     @FXML
-    private void nextCard() {
+    void nextCard() {
         if (cards.isEmpty()) {
             createInfoAlert("Empty Deck", "No deck loaded.");
             return;
@@ -161,7 +165,7 @@ public class Controller {
     }
 
     @FXML
-    private void prevCard() {
+    void prevCard() {
         if (cards.isEmpty()) {
             createInfoAlert("Empty Deck", "No deck loaded.");
             return;
@@ -229,7 +233,7 @@ public class Controller {
     }
 
     @FXML
-    private void showAnswer() {
+    void showAnswer() {
         if (questionText.getText().isEmpty()) return;
 
         if (shown) {
