@@ -6,8 +6,6 @@ Projects created using Java and JavaFX
 
 ## Inventory Tracker
 
-## Flash Cards
-
 ## Music Visualiser
 
 ## Music Manager
